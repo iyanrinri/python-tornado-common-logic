@@ -6,7 +6,7 @@ for the Tornado web application.
 """
 
 from .base_handler import BaseHandler
-from .median_handlers import MedianHandler, MedianStatsHandler, MedianBatchHandler
+from .median_handlers_simple import MedianHandler, MedianStatsHandler, MedianBatchHandler
 from .health_handlers import HealthHandler, StatusHandler, ReadinessHandler, LivenessHandler
 
 __all__ = [

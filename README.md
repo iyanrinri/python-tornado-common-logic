@@ -1,6 +1,6 @@
-# Tornado Median Calculator Service
+# Tornado Pryhects
 
-A production-ready Tornado-based web service for calculating the median of two sorted arrays, built with clean architecture principles and comprehensive SDLC practices.
+A production-ready Tornado-based web service for common service logic.
 
 ## 🎯 Features
 

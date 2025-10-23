@@ -11,7 +11,7 @@ from typing import List, Union, Dict, Any
 from datetime import datetime
 
 from ..utils.array_operations import find_median_sorted_arrays, ArrayOperationError
-from .dto import MedianRequest, MedianResponse, ErrorResponse
+from .dto_simple import MedianRequest, MedianResponse
 
 logger = logging.getLogger(__name__)
 
