@@ -150,3 +150,120 @@ class HealthResponse:
             "version": self.version,
             "uptime_seconds": self.uptime_seconds
         }
+
+
+class PalindromeRequest:
+    """Request model for palindrome pairs calculation."""
+    
+    def __init__(self, words: List[str]):
+        """Initialize and validate the request."""
+        self.words = self._validate_word_list(words)
+    
+    def _validate_word_list(self, value: Any) -> List[str]:
+        """Validate that input is a list of strings."""
+        if not isinstance(value, list):
+            raise ValidationError("Field 'words' must be a list", "words")
+        
+        for i, word in enumerate(value):
+            if not isinstance(word, str):
+                raise ValidationError(
+                    f"Item at index {i} in 'words' must be a string, got {type(word).__name__}",
+                    "words"
+                )
+        
+        return value
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'PalindromeRequest':
+        """Create PalindromeRequest from dictionary."""
+        if not isinstance(data, dict):
+            raise ValidationError("Request data must be a dictionary")
+        
+        if "words" not in data:
+            raise ValidationError("Missing required field 'words'", "words")
+        
+        return cls(words=data["words"])
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary."""
+        return {"words": self.words}
+
+
+class PalindromeResponse:
+    """Response model for palindrome pairs calculation."""
+    
+    def __init__(self, pairs: List[List[int]], word_count: int, pairs_count: int, 
+                 execution_time_ms: Optional[float] = None, statistics: Optional[Dict[str, Any]] = None):
+        """Initialize the response."""
+        self.pairs = pairs
+        self.word_count = word_count
+        self.pairs_count = pairs_count
+        self.execution_time_ms = execution_time_ms
+        self.statistics = statistics
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON response."""
+        result = {
+            "pairs": self.pairs,
+            "word_count": self.word_count,
+            "pairs_count": self.pairs_count
+        }
+        
+        if self.execution_time_ms is not None:
+            result["execution_time_ms"] = self.execution_time_ms
+        
+        if self.statistics is not None:
+            result["statistics"] = self.statistics
+        
+        return result
+
+
+class PalindromeCheckRequest:
+    """Request model for single palindrome check."""
+    
+    def __init__(self, text: str):
+        """Initialize and validate the request."""
+        self.text = self._validate_string(text)
+    
+    def _validate_string(self, value: Any) -> str:
+        """Validate that input is a string."""
+        if not isinstance(value, str):
+            raise ValidationError("Field 'text' must be a string", "text")
+        return value
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'PalindromeCheckRequest':
+        """Create PalindromeCheckRequest from dictionary."""
+        if not isinstance(data, dict):
+            raise ValidationError("Request data must be a dictionary")
+        
+        if "text" not in data:
+            raise ValidationError("Missing required field 'text'", "text")
+        
+        return cls(text=data["text"])
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary."""
+        return {"text": self.text}
+
+
+class PalindromeCheckResponse:
+    """Response model for palindrome check."""
+    
+    def __init__(self, text: str, is_palindrome: bool, execution_time_ms: Optional[float] = None):
+        """Initialize the response."""
+        self.text = text
+        self.is_palindrome = is_palindrome
+        self.execution_time_ms = execution_time_ms
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON response."""
+        result = {
+            "text": self.text,
+            "is_palindrome": self.is_palindrome
+        }
+        
+        if self.execution_time_ms is not None:
+            result["execution_time_ms"] = self.execution_time_ms
+        
+        return result

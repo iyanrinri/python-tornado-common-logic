@@ -8,6 +8,13 @@ for the Tornado web application.
 from .base_handler import BaseHandler
 from .median_handlers_simple import MedianHandler, MedianStatsHandler, MedianBatchHandler
 from .health_handlers import HealthHandler, StatusHandler, ReadinessHandler, LivenessHandler
+from .palindrome_handlers import (
+    PalindromeHandler,
+    PalindromeCheckHandler, 
+    PalindromeLongestHandler,
+    PalindromeStatsHandler,
+    PalindromeBatchHandler
+)
 
 __all__ = [
     'BaseHandler',
@@ -17,7 +24,12 @@ __all__ = [
     'HealthHandler', 
     'StatusHandler', 
     'ReadinessHandler', 
-    'LivenessHandler'
+    'LivenessHandler',
+    'PalindromeHandler',
+    'PalindromeCheckHandler',
+    'PalindromeLongestHandler', 
+    'PalindromeStatsHandler',
+    'PalindromeBatchHandler'
 ]
 
 # URL patterns for the application
@@ -33,6 +45,13 @@ def get_url_patterns():
         (r"/api/v1/median", MedianHandler),
         (r"/api/v1/median/batch", MedianBatchHandler),
         (r"/api/v1/median/stats", MedianStatsHandler),
+        
+        # Palindrome calculation endpoints
+        (r"/api/v1/palindrome/pairs", PalindromeHandler),
+        (r"/api/v1/palindrome/check", PalindromeCheckHandler),
+        (r"/api/v1/palindrome/longest", PalindromeLongestHandler),
+        (r"/api/v1/palindrome/stats", PalindromeStatsHandler),
+        (r"/api/v1/palindrome/batch", PalindromeBatchHandler),
         
         # Health and monitoring endpoints
         (r"/health", HealthHandler),
